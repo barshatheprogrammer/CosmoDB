@@ -1,0 +1,395 @@
+/* ─── Viewer Styles ────────────────────────────────── */
+
+body {
+    background: #f0ebff;
+}
+
+/* Progress Bar */
+.progress-bar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: rgba(124, 58, 237, 0.2);
+    z-index: 999;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--primary);
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+/* Loading */
+.viewer-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    gap: 20px;
+    color: var(--text-muted);
+}
+
+/* Error */
+.viewer-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+}
+
+.error-box {
+    text-align: center;
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: 60px 40px;
+    max-width: 400px;
+    box-shadow: var(--shadow-md);
+}
+
+.error-icon {
+    font-size: 64px;
+    display: block;
+    margin-bottom: 24px;
+}
+
+.error-box h2 {
+    margin-bottom: 12px;
+}
+
+.error-box p {
+    margin-bottom: 24px;
+}
+
+/* Form Viewer Layout */
+.form-viewer {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+}
+
+/* Header Card */
+.viewer-header-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+}
+
+.viewer-color-bar {
+    height: 12px;
+    background: var(--primary);
+}
+
+.viewer-header-body {
+    padding: 32px;
+}
+
+.viewer-header-body h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.viewer-description {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    white-space: pre-wrap;
+    margin-bottom: 16px;
+}
+
+.viewer-required-note {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+}
+
+.required-star {
+    color: #e53e3e;
+    font-weight: 700;
+    margin-right: 2px;
+}
+
+/* Question Cards */
+.viewer-question-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    transition: box-shadow var(--transition);
+}
+
+.viewer-question-card:focus-within {
+    box-shadow: var(--shadow-md), 0 0 0 2px rgba(124, 58, 237, 0.15);
+}
+
+.viewer-question-label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+/* Short/Paragraph inputs */
+.viewer-text-input,
+.viewer-textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid var(--border);
+    outline: none;
+    font-size: 0.95rem;
+    font-family: var(--font);
+    padding: 8px 2px;
+    background: transparent;
+    color: var(--text-primary);
+    transition: border-color var(--transition);
+}
+
+.viewer-text-input:focus,
+.viewer-textarea:focus {
+    border-bottom-color: var(--primary);
+}
+
+.viewer-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* MCQ / Checkboxes Options */
+.viewer-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.viewer-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    transition: all var(--transition);
+    font-size: 0.95rem;
+    user-select: none;
+}
+
+.viewer-option:hover {
+    background: var(--primary-bg);
+    border-color: var(--primary-light);
+}
+
+.viewer-option input {
+    cursor: pointer;
+    accent-color: var(--primary);
+}
+
+/* Dropdown */
+.viewer-select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-family: var(--font);
+    outline: none;
+    cursor: pointer;
+    background: white;
+    transition: border-color var(--transition);
+}
+
+.viewer-select:focus {
+    border-color: var(--primary);
+}
+
+/* Date input */
+.viewer-date {
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-family: var(--font);
+    outline: none;
+    cursor: pointer;
+    transition: border-color var(--transition);
+}
+
+.viewer-date:focus {
+    border-color: var(--primary);
+}
+
+/* Linear Scale */
+.linear-scale-viewer {
+    margin-top: 8px;
+}
+
+.scale-track {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+}
+
+.scale-btn {
+    flex: 1;
+    position: relative;
+    text-align: center;
+}
+
+.scale-btn input[type="radio"] {
+    display: none;
+}
+
+.scale-btn label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all var(--transition);
+    margin: 0 auto;
+    background: white;
+}
+
+.scale-btn input:checked+label,
+.scale-btn label:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: scale(1.12);
+}
+
+.scale-min-max {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+/* Section divider */
+.viewer-section {
+    padding: 12px 0 4px;
+    margin-bottom: 8px;
+}
+
+.viewer-section h3 {
+    font-size: 1.2rem;
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary-bg);
+    padding-bottom: 8px;
+}
+
+.viewer-section p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 6px;
+}
+
+/* Submit Area */
+.viewer-submit-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 28px;
+}
+
+/* Validation error */
+.field-error {
+    font-size: 0.8rem;
+    color: var(--danger);
+    margin-top: 6px;
+    display: none;
+}
+
+.field-error.visible {
+    display: block;
+}
+
+.viewer-question-card.has-error {
+    border: 1.5px solid #fca5a5;
+}
+
+/* Success */
+.viewer-success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+}
+
+.success-box {
+    text-align: center;
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: 60px 48px;
+    max-width: 440px;
+    box-shadow: var(--shadow-lg);
+}
+
+.success-icon-wrap {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.success-box h2 {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+}
+
+.success-box p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 600px) {
+    .form-viewer {
+        padding: 20px 12px 60px;
+    }
+
+    .viewer-header-body {
+        padding: 24px 20px;
+    }
+
+    .viewer-question-card {
+        padding: 20px;
+    }
+
+    .viewer-submit-area {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

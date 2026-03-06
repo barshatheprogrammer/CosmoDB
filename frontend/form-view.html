@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form — FormsCosmo</title>
+    <meta name="description" content="Fill out this form." />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/viewer.css" />
+</head>
+
+<body>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar-container" id="progressBarContainer">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loadingState" class="viewer-loading">
+        <div class="spinner"></div>
+        <p>Loading form...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="errorState" class="viewer-error hidden">
+        <div class="error-box">
+            <span class="error-icon">😞</span>
+            <h2>Form not found</h2>
+            <p>The form you're looking for doesn't exist or has been removed.</p>
+            <a href="index.html" class="btn btn-primary">Go to Dashboard</a>
+        </div>
+    </div>
+
+    <!-- Form Viewer -->
+    <div id="formViewer" class="form-viewer hidden">
+
+        <!-- Form Header -->
+        <div class="viewer-header-card" id="viewerHeaderCard">
+            <div class="viewer-color-bar" id="viewerColorBar"></div>
+            <div class="viewer-header-body">
+                <h1 id="viewerFormTitle">Form Title</h1>
+                <p id="viewerFormDescription" class="viewer-description"></p>
+                <div class="viewer-required-note">
+                    <span class="required-star">*</span> Required fields are marked with an asterisk
+                </div>
+            </div>
+        </div>
+
+        <!-- Email field (if enabled) -->
+        <div class="viewer-question-card hidden" id="emailQuestion">
+            <div class="viewer-question-label">
+                Email address <span class="required-star">*</span>
+            </div>
+            <input type="email" class="form-control" id="respondentEmail" placeholder="your@email.com" />
+        </div>
+
+        <!-- Questions -->
+        <div id="viewerQuestionsContainer"></div>
+
+        <!-- Submit Button -->
+        <div class="viewer-submit-area">
+            <button class="btn btn-primary btn-lg" id="submitFormBtn">Submit</button>
+            <button class="btn btn-ghost" id="clearFormBtn">Clear form</button>
+        </div>
+
+    </div>
+
+    <!-- Success State -->
+    <div id="successState" class="viewer-success hidden">
+        <div class="success-box">
+            <div class="success-icon-wrap">
+                <svg width="48" height="48" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                </svg>
+            </div>
+            <h2>Response submitted!</h2>
+            <p id="successMessage">Your response has been recorded.</p>
+            <a href="index.html" class="btn btn-ghost" style="margin-top:16px;">Go to Dashboard</a>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/viewer.js"></script>
+</body>
+
+</html>

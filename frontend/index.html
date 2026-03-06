@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Google Forms Clone — Dashboard</title>
+  <meta name="description" content="Create and manage forms with ease. A powerful Google Forms clone built with Node.js and CosmosDB." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+      <div class="logo-icon">📋</div>
+      <span>FormsCosmo</span>
+    </a>
+    <div class="navbar-actions">
+      <button class="btn btn-primary" id="createFormBtn">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        New Form
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1>Your Forms</h1>
+      <p>Create, share and analyze responses in real-time with CosmosDB</p>
+    </div>
+    <div class="hero-stats" id="heroStats">
+      <div class="stat-pill">
+        <span class="stat-number" id="totalForms">—</span>
+        <span class="stat-label">Forms</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-number" id="totalResponses">—</span>
+        <span class="stat-label">Responses</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <main class="main-content">
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="search-box">
+        <svg class="search-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search forms..." />
+      </div>
+      <div class="view-toggle">
+        <button class="view-btn active" id="gridViewBtn" title="Grid view">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3A1.5 1.5 0 0 1 15 10.5v3A1.5 1.5 0 0 1 13.5 15h-3A1.5 1.5 0 0 1 9 13.5v-3z"/></svg>
+        </button>
+        <button class="view-btn" id="listViewBtn" title="List view">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loadingState" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading your forms...</p>
+    </div>
+
+    <!-- Forms Grid -->
+    <div id="formsGrid" class="forms-grid hidden"></div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="empty-state hidden">
+      <span class="empty-icon">📝</span>
+      <h3>No forms yet</h3>
+      <p>Create your first form and start collecting responses</p>
+      <button class="btn btn-primary btn-lg" id="createFormEmptyBtn">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        Create your first form
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Delete Confirm Modal -->
+  <div class="modal-overlay hidden" id="deleteModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>🗑️ Delete Form</h3>
+        <button class="btn btn-icon btn-ghost" id="closeDeleteModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete <strong id="deleteFormTitle"></strong>? This will also delete all responses and cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="cancelDeleteBtn">Cancel</button>
+        <button class="btn btn-danger" id="confirmDeleteBtn">Delete Form</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Share Modal -->
+  <div class="modal-overlay hidden" id="shareModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>🔗 Share Form</h3>
+        <button class="btn btn-icon btn-ghost" id="closeShareModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom:16px;">Share this link with respondents:</p>
+        <div class="share-input-group">
+          <input type="text" id="shareUrlInput" class="form-control" readonly />
+          <button class="btn btn-primary" id="copyLinkBtn">Copy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Builder — FormsCosmo</title>
+    <meta name="description" content="Build beautiful forms with our easy-to-use form builder." />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/builder.css" />
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar builder-navbar">
+        <div class="navbar-left">
+            <a href="index.html" class="btn btn-ghost btn-sm">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M19 12H5M12 5l-7 7 7 7" />
+                </svg>
+                Back
+            </a>
+            <div class="form-title-wrapper">
+                <input type="text" id="formTitle" class="form-title-input" placeholder="Untitled Form"
+                    value="Untitled Form" maxlength="120" />
+            </div>
+        </div>
+        <div class="navbar-actions">
+            <div class="tab-group">
+                <button class="tab-btn active" data-tab="questions" id="questionsTabBtn">Questions</button>
+                <button class="tab-btn" data-tab="settings" id="settingsTabBtn">Settings</button>
+            </div>
+            <button class="btn btn-ghost btn-sm" id="previewBtn">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                </svg>
+                Preview
+            </button>
+            <button class="btn btn-primary" id="saveFormBtn">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                    <polyline points="17,21 17,13 7,13 7,21" />
+                    <polyline points="7,3 7,8 15,8" />
+                </svg>
+                Save Form
+            </button>
+        </div>
+    </nav>
+
+    <!-- Builder Layout -->
+    <div class="builder-layout">
+
+        <!-- Left Sidebar: Add Question -->
+        <aside class="builder-sidebar">
+            <div class="sidebar-section">
+                <p class="sidebar-label">ADD QUESTION</p>
+                <div class="question-type-grid">
+                    <button class="q-type-btn" data-type="short_answer" title="Short Answer">
+                        <span class="q-type-icon">📝</span>
+                        <span>Short Answer</span>
+                    </button>
+                    <button class="q-type-btn" data-type="paragraph" title="Paragraph">
+                        <span class="q-type-icon">📄</span>
+                        <span>Paragraph</span>
+                    </button>
+                    <button class="q-type-btn" data-type="multiple_choice" title="Multiple Choice">
+                        <span class="q-type-icon">🔘</span>
+                        <span>Multiple Choice</span>
+                    </button>
+                    <button class="q-type-btn" data-type="checkboxes" title="Checkboxes">
+                        <span class="q-type-icon">☑️</span>
+                        <span>Checkboxes</span>
+                    </button>
+                    <button class="q-type-btn" data-type="dropdown" title="Dropdown">
+                        <span class="q-type-icon">🔽</span>
+                        <span>Dropdown</span>
+                    </button>
+                    <button class="q-type-btn" data-type="linear_scale" title="Linear Scale">
+                        <span class="q-type-icon">📊</span>
+                        <span>Linear Scale</span>
+                    </button>
+                    <button class="q-type-btn" data-type="date" title="Date">
+                        <span class="q-type-icon">📅</span>
+                        <span>Date</span>
+                    </button>
+                    <button class="q-type-btn" data-type="section" title="Section">
+                        <span class="q-type-icon">📌</span>
+                        <span>Section</span>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center: Canvas -->
+        <main class="builder-canvas" id="questionsTab">
+
+            <!-- Form Header Card -->
+            <div class="form-header-card" id="formHeaderCard">
+                <div class="form-color-bar" id="formColorBar"></div>
+                <div class="card-body">
+                    <div class="form-group mb-0">
+                        <input type="text" id="formTitleCard" class="form-header-title" placeholder="Form Title"
+                            value="Untitled Form" maxlength="120" />
+                    </div>
+                    <div class="form-group mb-0 mt-4">
+                        <textarea id="formDescription" class="form-header-desc"
+                            placeholder="Form description (optional)" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questions will be added here -->
+            <div id="questionsContainer">
+                <!-- Questions rendered by JS -->
+            </div>
+
+            <!-- Add Question Prompt -->
+            <div class="add-question-prompt" id="addQuestionPrompt">
+                <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                    style="color:var(--text-muted)">
+                    <path d="M12 5v14M5 12h14" />
+                </svg>
+                <p>Click a question type on the left to add your first question</p>
+            </div>
+
+        </main>
+
+        <!-- Settings Tab (hidden by default) -->
+        <main class="builder-canvas hidden" id="settingsTab">
+            <div class="card">
+                <div class="card-header">
+                    <h3>⚙️ Form Settings</h3>
+                </div>
+                <div class="card-body">
+                    <div class="settings-group">
+                        <div class="settings-item">
+                            <div>
+                                <p class="font-medium">Collect email addresses</p>
+                                <p class="text-sm text-muted">Require respondents to provide their email</p>
+                            </div>
+                            <label class="toggle"><input type="checkbox" id="settingCollectEmail" /><span
+                                    class="toggle-slider"></span></label>
+                        </div>
+                        <div class="settings-item">
+                            <div>
+                                <p class="font-medium">Limit to 1 response</p>
+                                <p class="text-sm text-muted">Require sign-in (display message)</p>
+                            </div>
+                            <label class="toggle"><input type="checkbox" id="settingLimitOne" /><span
+                                    class="toggle-slider"></span></label>
+                        </div>
+                        <div class="settings-item">
+                            <div>
+                                <p class="font-medium">Show progress bar</p>
+                                <p class="text-sm text-muted">Display a progress indicator while filling the form</p>
+                            </div>
+                            <label class="toggle"><input type="checkbox" id="settingProgressBar" checked /><span
+                                    class="toggle-slider"></span></label>
+                        </div>
+                        <div class="settings-item">
+                            <div>
+                                <p class="font-medium">Shuffle question order</p>
+                                <p class="text-sm text-muted">Randomize the order of questions for each respondent</p>
+                            </div>
+                            <label class="toggle"><input type="checkbox" id="settingShuffleQuestions" /><span
+                                    class="toggle-slider"></span></label>
+                        </div>
+                    </div>
+
+                    <hr class="divider" />
+                    <h4 style="margin-bottom:16px;">Confirmation Message</h4>
+                    <div class="form-group">
+                        <label class="form-label">Message shown after submission</label>
+                        <textarea id="settingConfirmation" class="form-control" rows="3"
+                            placeholder="Your response has been recorded.">Your response has been recorded.</textarea>
+                    </div>
+
+                    <hr class="divider" />
+                    <h4 style="margin-bottom:16px;">Form Theme Color</h4>
+                    <div class="theme-colors">
+                        <button class="theme-color-btn active" data-color="#7c3aed" style="background:#7c3aed"
+                            title="Purple"></button>
+                        <button class="theme-color-btn" data-color="#3b82f6" style="background:#3b82f6"
+                            title="Blue"></button>
+                        <button class="theme-color-btn" data-color="#06b6d4" style="background:#06b6d4"
+                            title="Cyan"></button>
+                        <button class="theme-color-btn" data-color="#10b981" style="background:#10b981"
+                            title="Green"></button>
+                        <button class="theme-color-btn" data-color="#ec4899" style="background:#ec4899"
+                            title="Pink"></button>
+                        <button class="theme-color-btn" data-color="#f97316" style="background:#f97316"
+                            title="Orange"></button>
+                        <button class="theme-color-btn" data-color="#ef4444" style="background:#ef4444"
+                            title="Red"></button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/builder.js"></script>
+</body>
+
+</html>
